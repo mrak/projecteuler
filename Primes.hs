@@ -1,3 +1,5 @@
+module Primes where
+
 primes = 2 : primes'
   where
     primes' = sieve [3,5..] 9 primes'

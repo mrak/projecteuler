@@ -1,3 +1,5 @@
+module Fibonacci where
+
 main = putStrLn $ "The sum of all even fibonacci numbers less than four million is " ++ (show total)
 
 fibonaccis :: [Int]
