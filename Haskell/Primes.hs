@@ -9,3 +9,5 @@ primes = 2 : primes'
 
 largestPrimeFactor n =
    last [ x | x <- takeWhile (< (ceiling . sqrt . fromIntegral) n) primes, n `rem` x == 0 ]
+
+isPrime x = elem x [ y | y <- takeWhile (<=x) primes ]
