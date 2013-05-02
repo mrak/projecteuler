@@ -1,6 +1,4 @@
-triangleNumbers :: [Integer]
-triangleNumbers = [ sumUpTo x | x <- [1..] ]
-   where sumUpTo = sum.flip take [0..]
+import TriangleNumbers
 
 divisors :: Integral a => a -> [a]
 divisors x = foldr accumulateDivisors [] [1..limit]
