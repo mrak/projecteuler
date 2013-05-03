@@ -1,3 +1,3 @@
-import Pythagorean
+import Euler
 
-main = print $ head [ a*b*c | [a,b,c] <- triplets, a+b+c == 1000 ]
+main = print $ head [ a*b*c | [a,b,c] <- pythagoreanTriplets, a+b+c == 1000 ]

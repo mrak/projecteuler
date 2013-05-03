@@ -1,4 +1,4 @@
-import TriangleNumbers
+import Euler
 
 divisors :: Integral a => a -> [a]
 divisors x = foldr accumulateDivisors [] [1..limit]
