@@ -11,7 +11,7 @@ evenFibonaccis = [ x | x <- fibonaccis, even x ]
 
 triangleNumbers :: [Integer]
 triangleNumbers = [ sumUpTo x | x <- [1..] ]
-   where sumUpTo = sum.flip take [0..]
+   where sumUpTo = sum . flip take [0..]
 
 primes :: [Integer]
 primes = 2 : primes'
