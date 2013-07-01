@@ -1,5 +1,16 @@
 module Euler where
 
+strcompare :: String -> String -> Ordering
+strcompare [] [] = EQ
+strcompare [] _  = LT
+strcompare _  [] = GT
+strcompare a  b  = let comparison = compare a b
+                   in  if comparison == EQ
+                       then strcompare (tail a) (tail b)
+                       else comparison
+
+
+
 pythagoreanTriplets :: [[Integer]]
 pythagoreanTriplets = [ [a,b,c] | c <- [1..], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2 ]
 
