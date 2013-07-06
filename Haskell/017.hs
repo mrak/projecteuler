@@ -34,9 +34,10 @@ under100 x
    | x < 100   = rest x
    | otherwise = length "and" + rest x
       where rest x = let piece = x `rem` 100
-                     in  if piece < 20
-                         then length $ ones!!piece
-                         else length $ tens!!(piece `quot` 10) ++ ones!!(piece `rem` 10)
+                     in  length
+                            (if piece < 20
+                             then ones!!piece
+                             else tens!!(piece `quot` 10) ++ ones!!(piece `rem` 10))
 hundred x
    | x < 100 = 0
    | x `rem` 1000 `quot` 100 == 0 = 0
@@ -46,6 +47,6 @@ thousand x
    | x == 1000 = length $ "one" ++ "thousand"
    | otherwise = 0
 
-countLetters n = (under100 n) + (hundred n) + (thousand n)
+countLetters n = under100 n + hundred n + thousand n
 
 main = print $ foldr (\n acc -> acc + countLetters n) 0 [1..1000]

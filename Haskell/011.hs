@@ -31,20 +31,20 @@ down _ x = 0
 diagr :: [[Int]] -> Int -> Int
 diagr m@(a:b:c:d:_) x
    | x > 16 = 0
-   | otherwise = maximum [this, (diagr (tail m) x)]
-      where this = ((a!!x)*(b!!(x+1))*(c!!(x+2))*(d!!(x+3)))
+   | otherwise = maximum [this, diagr (tail m) x]
+      where this = (a!!x)*(b!!(x+1))*(c!!(x+2))*(d!!(x+3))
 diagr _ x = 0
 
 diagl :: [[Int]] -> Int -> Int
 diagl m@(a:b:c:d:_) x
    | x > 16 = 0
-   | otherwise = maximum [this, (diagl (tail m) x)]
-      where this = ((d!!x)*(c!!(x+1))*(b!!(x+2))*(a!!(x+3)))
+   | otherwise = maximum [this, diagl (tail m) x]
+      where this = (d!!x)*(c!!(x+1))*(b!!(x+2))*(a!!(x+3))
 diagl _ x = 0
 
 main = print $ maximum [rights, downs, diagrs, diagls]
    where
-      rights = maximum $ map (right) matrix
+      rights = maximum $ map right matrix
       downs =  maximum $ map (down matrix) [0..19]
       diagrs = maximum $ map (diagr matrix) [0..19]
       diagls = maximum $ map (diagl matrix) [0..19]

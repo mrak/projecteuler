@@ -1,7 +1,7 @@
 import Data.Char (intToDigit,digitToInt)
 import Data.List (transpose)
 
-main = print $ take 10 $ (show $ fst digits) ++ (map (intToDigit) $ snd digits)
+main = print $ take 10 $ show (fst digits) ++ map intToDigit (snd digits)
 
 addColumn :: Integral x => [x] -> (x,x)
 addColumn xs = (carryover, digit)
@@ -9,13 +9,13 @@ addColumn xs = (carryover, digit)
          carryover = quot total 10
          digit = total `rem` 10
 
-digits = foldl (blah) (0,[]) columns
+digits = foldl blah (0,[]) columns
    where blah (c,ds) xs =
             let result = addColumn $ c:xs
-            in  ((fst result),(snd result):ds)
+            in  (fst result, snd result : ds)
 
 columns = (reverse.transpose) numbers
-numbers = map (map (digitToInt)) [
+numbers = map (map digitToInt) [
    "37107287533902102798797998220837590246510135740250",
    "46376937677490009712648124896970078050417018260538",
    "74324986199524741059474233309513058123726617309629",

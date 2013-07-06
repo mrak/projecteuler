@@ -41,11 +41,8 @@ monthDays y = [ 31
               , 31
               ]
 
-isLeapYear y | y `rem` 100 == 0 = if y `rem` 400 == 0 
-                                  then True
-                                  else False
-             | y `rem` 4 == 0   = True
-             | otherwise        = False
+isLeapYear y | y `rem` 100 == 0 = y `rem` 400 == 0
+             | otherwise        = y `rem` 4 == 0
 
 type EndDay = Day
 type StartDay = Day
@@ -57,9 +54,9 @@ startOfNextYear y d = if isLeapYear y
                    where dayRem ds d = (ds + fromEnum d) `rem` 7
 
 firstSundaysInYear :: Int -> StartDay -> Int
-firstSundaysInYear y d = snd $ foldl' (sundayCount) (fromEnum d, 0) (monthDays y)
+firstSundaysInYear y d = snd $ foldl' sundayCount (fromEnum d, 0) (monthDays y)
                      where sundayCount (d, s) ds | d `rem` 7 == 0 = (d + ds `rem` 7, s + 1)
                                                  | otherwise      = (d + ds `rem` 7, s)
 
-main = print $ snd $ foldl' (fun) (startOfNextYear 1900 Monday, 0) [1901..2000]
+main = print $ snd $ foldl' fun (startOfNextYear 1900 Monday, 0) [1901..2000]
    where fun (d, s) y = (startOfNextYear y d, s + firstSundaysInYear y d)

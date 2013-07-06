@@ -4,7 +4,7 @@ pandigital :: Integer -> Bool
 pandigital x
    | x > 9999999999 || x < 1234567890 = False
    | 10 > (length.nub) (show x) = False
-   | otherwise = d2d3d4  `rem` 2  == 0 &&
+   | otherwise = even d2d3d4 &&
                  d3d4d5  `rem` 3  == 0 &&
                  d4d5d6  `rem` 5  == 0 &&
                  d5d6d7  `rem` 7  == 0 &&

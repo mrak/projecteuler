@@ -29,22 +29,22 @@ primes = 2 : primes'
   where
     primes' = sieve [3,5..] 9 primes'
     sieve (x:xs) q ps@ ~(p:t)
-     | x < q = x : sieve xs q ps
-     | True  =     sieve [x | x <- xs, rem x p /= 0] (head t^2) t
+     | x < q     = x : sieve xs q ps
+     | otherwise = sieve [x | x <- xs, rem x p /= 0] (head t^2) t
 
 largestPrimeFactor :: Integer -> Integer
 largestPrimeFactor n =
    last [ x | x <- takeWhile (< (ceiling . sqrt . fromIntegral) n) primes, n `rem` x == 0 ]
 
 isPrime :: Integer -> Bool
-isPrime x = elem x [ y | y <- takeWhile (<=x) primes ]
+isPrime x = x `elem` takeWhile (<=x) primes
 
 collatz :: Integer -> [Integer]
 collatz 1 = [1]
 collatz x = let next = if even x
-                       then (x `quot` 2)
-                       else (3 * x + 1)
-            in  x:(collatz next)
+                       then x `quot` 2
+                       else 3 * x + 1
+            in  x : collatz next
 
 factorial :: Integer -> Integer
 factorial 0 = 1
