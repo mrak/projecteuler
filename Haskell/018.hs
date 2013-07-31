@@ -1,25 +1,22 @@
 import System.IO
-import Data.List (foldl1)
+import Data.List (foldr1)
 
-main = do filename <- promptFile
-          contents <- readFile filename
-          print $ maxTreeSum contents
+main :: IO ()
+main = getFilename
+       >>= readFile
+       >>= print . solve . treeify
 
-promptFile = do putStr "Filename: "
-                hFlush stdout
-                getLine
+getFilename :: IO String
+getFilename = putStr "Filename: "
+              >> hFlush stdout
+              >> getLine
 
-maxTreeSum :: String -> Int
-maxTreeSum s = maximum $ foldl1 maxDescendants $ treeify s
+solve :: [[Int]] -> Int
+solve = head . foldr1 compress
 
 treeify :: String -> [[Int]]
-treeify = map intify . lines
+treeify = map (map read . words) . lines
 
-intify :: String -> [Int]
-intify line = map read $ words line
-
-maxDescendants :: [Int] -> [Int] -> [Int]
-maxDescendants ps ds = reverse . snd $ foldl pickParent (0:ps,[]) ds
-
-pickParent (p1:p2:ps,ms) d = (p2:ps, (max p1 p2) + d : ms)
-pickParent (p:[],ms) d = (p:[], p + d : ms)
+compress :: [Int] -> [Int] -> [Int]
+compress [] compressed = compressed
+compress (p:ps) (c1:c2:cs) = p + max c1 c2 : compress ps (c2:cs)
