@@ -1,4 +1,48 @@
-pub struct Primes {}
+use std::iter;
+
+pub struct Primes {
+    current: u64,
+}
+
+impl Default for Primes {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Primes {
+    pub fn new() -> Primes {
+        Primes { current: 1 }
+    }
+}
+
+pub struct PrimesIterator {
+    primes: Primes,
+}
+
+impl IntoIterator for Primes {
+    type Item = u64;
+    type IntoIter = PrimesIterator;
+    fn into_iter(self) -> PrimesIterator {
+        PrimesIterator { primes: self }
+    }
+}
+
+impl Iterator for PrimesIterator {
+    type Item = u64;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.primes.current += 2;
+
+        while !is_prime(self.primes.current) {
+            self.primes.current += 2;
+        }
+        Some(self.primes.current)
+    }
+}
+
+pub fn prime_iterator() -> impl Iterator<Item = u64> {
+    iter::once(2_u64).chain(Primes::new())
+}
 
 fn is_prime(n: u64) -> bool {
     if n == 2 {
@@ -17,22 +61,4 @@ fn is_prime(n: u64) -> bool {
     }
 
     true
-}
-
-pub fn nth_prime(n: u64) -> u64 {
-    if n == 1 {
-        return 2;
-    }
-
-    let mut count = 1;
-    let mut candidate = 1;
-
-    while count < n {
-        candidate += 2;
-        if is_prime(candidate) {
-            count += 1;
-        }
-    }
-
-    candidate
 }
