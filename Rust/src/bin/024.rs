@@ -1,39 +1,49 @@
-// uses Heap's algorithm in iterative format. Pipe to |sort|sed -n '1000000p' to get answer
-#[allow(unused_assignments)]
 fn main() {
-    //let mut digits: Vec<usize> = vec![0, 1, 2].into_iter().rev().collect();
     let mut digits = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    let mut c = vec![0; digits.len()];
-    let mut tmp = 0;
-    let mut i = 1;
-
-    printdigits(&digits);
-    while i < c.len() {
-        if c[i] < i {
-            if i % 2 == 0 {
-                tmp = digits[0];
-                digits[0] = digits[i];
-                digits[i] = tmp;
-            } else {
-                tmp = digits[c[i]];
-                digits[c[i]] = digits[i];
-                digits[i] = tmp;
-            }
-            printdigits(&digits);
-
-            c[i] += 1;
-            i = 1;
-        } else {
-            c[i] = 0;
-            i += 1;
+    let mut count = 0;
+    loop {
+        count += 1;
+        if count == 1000000 {
+            break;
+        }
+        if sepa_algorithm(&mut digits) {
+            break;
         }
     }
-}
-
-fn printdigits(digits: &[usize]) {
     for x in digits {
         print!("{x}");
     }
     println!();
+}
+
+fn sepa_algorithm(list: &mut [usize]) -> bool {
+    let mut len = list.len();
+    let mut key = len - 1;
+    let mut newkey = len - 1;
+
+    while key > 0 && list[key] <= list[key - 1] {
+        key -= 1;
+    }
+
+    if key == 0 {
+        return true; // done
+    }
+    key -= 1;
+
+    while newkey > key && list[newkey] <= list[key] {
+        newkey -= 1;
+    }
+
+    list.swap(key, newkey);
+
+    len -= 1;
+    key += 1;
+
+    while len > key {
+        list.swap(len, key);
+        key += 1;
+        len -= 1;
+    }
+
+    false // more to go
 }
