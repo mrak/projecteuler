@@ -2,25 +2,27 @@ use num_bigint::BigUint;
 use num_traits::One;
 
 pub struct Fibonacci {
-    prev: BigUint,
-    next: BigUint,
+    prev: Option<BigUint>,
+    next: Option<BigUint>,
 }
 
 impl Iterator for Fibonacci {
     type Item = BigUint;
     fn next(&mut self) -> Option<Self::Item> {
-        let new_next = &self.prev + &self.next;
+        let prev = self.prev.take().unwrap();
+        let next = self.next.take().unwrap();
+        let new_next = prev.clone() + next.clone();
 
-        self.prev = self.next.clone();
-        self.next = new_next.clone();
+        self.prev = Some(next);
+        self.next = Some(new_next);
 
-        Some(self.prev.clone())
+        Some(prev)
     }
 }
 
 pub fn fibonacci() -> Fibonacci {
     Fibonacci {
-        prev: BigUint::ZERO,
-        next: BigUint::one(),
+        prev: Some(BigUint::ZERO),
+        next: Some(BigUint::one()),
     }
 }
