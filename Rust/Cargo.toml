@@ -1,0 +1,10 @@
+[package]
+name = "projecteuler"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "007"
+path = "src/bin/007.rs"
+
+[dependencies]
