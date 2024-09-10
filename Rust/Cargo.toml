@@ -9,5 +9,10 @@ path = "src/bin/007.rs"
 [[bin]]
 name = "023"
 path = "src/bin/023.rs"
+[[bin]]
+name = "025"
+path = "src/bin/025.rs"
 
 [dependencies]
+num-bigint = "0.4.6"
+num-traits = "0.2.18"
