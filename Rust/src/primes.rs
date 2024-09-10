@@ -54,7 +54,7 @@ fn is_prime(n: u64) -> bool {
     }
 
     let limit = f64::sqrt(n as f64) as u64 + 1;
-    for x in 3..limit {
+    for x in (3..limit).step_by(2) {
         if n % x == 0 {
             return false;
         }

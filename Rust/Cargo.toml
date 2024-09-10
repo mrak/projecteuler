@@ -6,5 +6,8 @@ edition = "2021"
 [[bin]]
 name = "007"
 path = "src/bin/007.rs"
+[[bin]]
+name = "023"
+path = "src/bin/023.rs"
 
 [dependencies]
