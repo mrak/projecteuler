@@ -18,6 +18,15 @@ path = "src/bin/025.rs"
 [[bin]]
 name = "026"
 path = "src/bin/026.rs"
+[[bin]]
+name = "028"
+path = "src/bin/028.rs"
+[[bin]]
+name = "029"
+path = "src/bin/029.rs"
+[[bin]]
+name = "032"
+path = "src/bin/032.rs"
 
 [dependencies]
 num-bigint = "0.4.6"

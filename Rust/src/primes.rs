@@ -44,7 +44,7 @@ pub fn prime_iterator() -> impl Iterator<Item = u64> {
     iter::once(2_u64).chain(Primes::new())
 }
 
-fn is_prime(n: u64) -> bool {
+pub fn is_prime(n: u64) -> bool {
     if n == 2 {
         return true;
     }
