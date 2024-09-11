@@ -15,6 +15,9 @@ path = "src/bin/024.rs"
 [[bin]]
 name = "025"
 path = "src/bin/025.rs"
+[[bin]]
+name = "026"
+path = "src/bin/026.rs"
 
 [dependencies]
 num-bigint = "0.4.6"
