@@ -7,6 +7,9 @@ edition = "2021"
 name = "007"
 path = "src/bin/007.rs"
 [[bin]]
+name = "015"
+path = "src/bin/015.rs"
+[[bin]]
 name = "023"
 path = "src/bin/023.rs"
 [[bin]]
