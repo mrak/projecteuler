@@ -15,7 +15,7 @@ rateName name position = position * foldr letterAdd 0 name
     where letterAdd c acc = (ord c - 64) + acc
 
 main = do
-    contents <- readFile "22.txt"
+    contents <- readFile "022.txt"
     let sorted = sortNames contents
     print $ snd $ foldl' fun (0,0) sorted
         where fun (i,s) name = let index = i + 1
