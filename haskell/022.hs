@@ -1,22 +1,20 @@
-import System.IO
-import Data.List (groupBy, sortBy, foldl')
-import Data.Function (on)
+{-# LANGUAGE OverloadedStrings #-}
+{- HLINT ignore "Functor law" -}
+{- HLINT ignore "Redundant <&>" -}
+import Data.List (sort)
 import Data.Char (ord)
-import Euler (strcompare)
+import qualified Data.Text as T
+import qualified Data.Text.IO as TIO
+import Data.Functor ((<&>))
 
-listNames :: String -> [String]
-listNames string = groupBy ((==) `on` (== ',')) [ x | x <- string, x /= '"', x /= '\r', x /= '\n' ]
+rateName :: Int -> T.Text -> Int
+rateName position = (* position) . sum . T.foldr (\c acc -> (ord c - 64) : acc) []
 
-sortNames :: String -> [String]
-sortNames names = sortBy strcompare $ (filter (/= ",") . listNames) names
-
-rateName :: String -> Int -> Int
-rateName name position = position * foldr letterAdd 0 name
-    where letterAdd c acc = (ord c - 64) + acc
-
-main = do
-    contents <- readFile "022.txt"
-    let sorted = sortNames contents
-    print $ snd $ foldl' fun (0,0) sorted
-        where fun (i,s) name = let index = i + 1
-                               in  (index, s + rateName name index)
+main = TIO.readFile "022.txt"
+  <&> T.strip
+  <&> T.splitOn ","
+  <&> map (T.dropAround (== '"'))
+  <&> sort
+  <&> zipWith rateName [1..]
+  <&> sum
+  >>= print
