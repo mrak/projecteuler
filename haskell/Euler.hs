@@ -62,3 +62,10 @@ divisors n
             | x*x == n = x : divisors' n xs
             | mod n x == 0 = x : quot n x : divisors' n xs
             | otherwise = divisors' n xs
+
+breakOut :: Int -> [a] -> (Maybe a, [a])
+breakOut _ [] = (Nothing, [])
+breakOut 0 (x:xs) = (Just x, xs)
+breakOut n xs = case splitAt n xs of
+                  (h, []) -> (Nothing, xs)
+                  (h, x:t) -> (Just x, h++t)
