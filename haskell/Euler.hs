@@ -52,3 +52,13 @@ factorial 1 = 1
 factorial n
    | n < 0     = 0
    | otherwise = n * factorial (n - 1)
+
+divisors :: (Integral a) => a -> [a]
+divisors n
+  | n <= 0 = []
+  | otherwise = 1 : divisors' n [2..(floor.sqrt.fromIntegral $ n)]
+    where divisors' n [] = []
+          divisors' n (x:xs)
+            | x*x == n = x : divisors' n xs
+            | mod n x == 0 = x : quot n x : divisors' n xs
+            | otherwise = divisors' n xs
