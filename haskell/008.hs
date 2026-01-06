@@ -3,6 +3,6 @@ source = "7316717653133062491922511967442657474235534919493496983520312774506326
 digits = map digitToInt source
 
 consecutiveProd l@(a:b:c:d:e:[]) = product l
-consecutiveProd l@(a:b:c:d:e:t) = max (product [a,b,c,d,e]) (consecutiveProd (tail l))
+consecutiveProd l@(a:b:c:d:e:t) = max (a*b*c*d*e) (consecutiveProd (tail l))
 
 main = print $ consecutiveProd digits
